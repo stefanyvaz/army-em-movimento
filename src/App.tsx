@@ -8,6 +8,7 @@ import Desafios from './Pages/Desafios'
 import Fanbases from './Pages/Fanbases'
 import TesteDeNivel from './Pages/TesteDeNivel'
 import Recursos from './Pages/Recursos'
+  import Esportes from "./Pages/Esportes";
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/fanbases" element={<Fanbases />} />
         <Route path="/teste-de-nivel" element={<TesteDeNivel />} />
         <Route path="/recursos" element={<Recursos />} />
+          <Route path="/esportes" element={<Esportes />} />
       </Routes>
       <Footer />
     </BrowserRouter>

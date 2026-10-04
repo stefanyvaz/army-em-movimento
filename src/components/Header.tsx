@@ -13,6 +13,7 @@ function Header() {
   <Link to="/fanbases">Fanbases</Link>
 <Link to="/teste-de-nivel">Teste de nível</Link>
 <Link to="/recursos">Recursos</Link>
+<Link to="/esportes">Esportes</Link>
 </nav>
     </header>
   )
