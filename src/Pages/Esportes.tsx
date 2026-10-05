@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { esportes } from "../data/esportes";
+import "./Esportes.css";
 
 const POR_PAGINA = 30;
 
@@ -23,11 +24,12 @@ export default function Esportes() {
   const mostrados = filtrados.slice(0, visiveis);
 
   return (
-    <main style={{ padding: "24px", maxWidth: "900px", margin: "0 auto" }}>
-      <h1>Enciclopédia dos Esportes</h1>
-      <p>{filtrados.length} esportes para você se mover 💜</p>
+    <section className="activities">
+      <h2>Enciclopédia dos Esportes</h2>
+      <p className="points-total">{filtrados.length} esportes para você se mover 💜</p>
 
       <input
+        className="sport-search"
         type="text"
         placeholder="Buscar esporte..."
         value={busca}
@@ -35,26 +37,27 @@ export default function Esportes() {
           setBusca(e.target.value);
           setVisiveis(POR_PAGINA);
         }}
-        style={{ width: "100%", padding: "10px", marginBottom: "12px" }}
       />
 
-      <select
-        value={categoria}
-        onChange={(e) => {
-          setCategoria(e.target.value);
-          setVisiveis(POR_PAGINA);
-        }}
-        style={{ width: "100%", padding: "10px", marginBottom: "12px" }}
-      >
-        {categorias.map((cat) => (
-          <option key={cat} value={cat}>
-            {cat}
-          </option>
-        ))}
-      </select>
+      <div>
+        <select
+          className="sport-select"
+          value={categoria}
+          onChange={(e) => {
+            setCategoria(e.target.value);
+            setVisiveis(POR_PAGINA);
+          }}
+        >
+          {categorias.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <div style={{ marginBottom: "16px" }}>
-        <label style={{ marginRight: "16px" }}>
+      <div className="sport-checks">
+        <label>
           <input
             type="checkbox"
             checked={soAdaptado}
@@ -80,35 +83,35 @@ export default function Esportes() {
 
       {filtrados.length === 0 && <p>Nenhum esporte encontrado 😕</p>}
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      <div className="activities-grid">
         {mostrados.map((esporte) => (
-          <li
+          <div
+            className="activity-card"
             key={esporte.id}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "12px",
-              padding: "12px 16px",
-              marginBottom: "12px",
-            }}
+            style={{ cursor: "default" }}
           >
             <h3>{esporte.nome}</h3>
-            <p>
-              {esporte.categoria} • {esporte.tipo}
-            </p>
-            {esporte.adaptado && <span>♿ Adaptado </span>}
-            {esporte.idosos && <span>👵 Indicado para idosos</span>}
-          </li>
+            {esporte.descricao && <p>{esporte.descricao}</p>}
+            <div className="activity-tags">
+              <span className="tag">{esporte.categoria}</span>
+              <span className="tag">{esporte.tipo}</span>
+              {esporte.adaptado && <span className="tag">♿ adaptado</span>}
+              {esporte.idosos && <span className="tag">👵 idosos</span>}
+              {esporte.pais && <span className="tag">🌍 {esporte.pais}</span>}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {visiveis < filtrados.length && (
         <button
+          className="sport-more"
           onClick={() => setVisiveis(visiveis + POR_PAGINA)}
-          style={{ padding: "10px 20px", borderRadius: "20px" }}
         >
           Ver mais ({filtrados.length - visiveis} restantes)
         </button>
       )}
-    </main>
+    </section>
   );
+  
 }
