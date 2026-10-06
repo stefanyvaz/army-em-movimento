@@ -29,3 +29,24 @@
   color: white;
   cursor: pointer;
 }
+.sport-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.sport-heart {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.ver-enciclopedia {
+  display: inline-block;
+  margin-top: 10px;
+  color: #d0b8ff;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}

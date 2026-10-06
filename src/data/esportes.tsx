@@ -324,9 +324,19 @@ const esportesBase: Esporte[] = [  { id: 1, nome: "Futsal", categoria: "Futebol"
   { id: 314, nome: "Muay boran", categoria: "Tradicionais", tipo: "Individual", adaptado: false, idosos: false },
   { id: 315, nome: "Bokator", categoria: "Tradicionais", tipo: "Individual", adaptado: false, idosos: false },
   { id: 316, nome: "Vovinam", categoria: "Tradicionais", tipo: "Individual", adaptado: false, idosos: false },
-  { id: 317, nome: "Ioga", categoria: "Tradicionais", tipo: "Individual", adaptado: true, idosos: true },
+  { id: 317, nome: "Ioga / Yoga", categoria: "Tradicionais", tipo: "Individual", adaptado: true, idosos: true },
   { id: 318, nome: "Qigong", categoria: "Tradicionais", tipo: "Individual", adaptado: true, idosos: true },
-  { id: 319, nome: "Kok boru", categoria: "Tradicionais", tipo: "Equipe", adaptado: false, idosos: false },
+  { id: 319, nome: "Kok boru", categoria: "Tradicionais", tipo: "Equipe", adaptado: false, idosos: false},
+    { id: 320, nome: "Beisebol", categoria: "Quadra", tipo: "Equipe", adaptado: false, idosos: false, pais: "Estados Unidos", descricao: "Rebatida, corrida e estratégia. Use capacete ao rebater." },
+  { id: 321, nome: "Críquete", categoria: "Quadra", tipo: "Equipe", adaptado: false, idosos: false, pais: "Inglaterra", descricao: "Esporte tradicional com taco e bola, muito popular na Índia, na Inglaterra e na Austrália." },
+  { id: 322, nome: "Lacrosse", categoria: "Quadra", tipo: "Equipe", adaptado: false, idosos: false, pais: "América do Norte", descricao: "Esporte de equipe com bastões e rede, de origem nos povos indígenas norte-americanos. Use proteção." },
+  { id: 323, nome: "Escalada", categoria: "Força", tipo: "Ambos", adaptado: true, idosos: false, descricao: "Desafie o corpo em uma parede de escalada. Comece em ginásio indoor, com instrutor e equipamento de segurança." },
+  { id: 324, nome: "Pesca esportiva", categoria: "Precisão", tipo: "Individual", adaptado: true, idosos: true, descricao: "Calma, paciência e contato com a natureza. Use colete salva-vidas se for de barco." },
+  { id: 325, nome: "Pilates", categoria: "Ginástica e dança", tipo: "Individual", adaptado: true, idosos: true, pais: "Alemanha", descricao: "Controle, postura e fortalecimento com foco na respiração. Bom com instrutor." },
+  { id: 326, nome: "Zumba", categoria: "Ginástica e dança", tipo: "Ambos", adaptado: true, idosos: true, pais: "Colômbia", descricao: "Dança animada ao som de ritmos latinos, em aula coletiva." },
+  { id: 327, nome: "Caminhada", categoria: "Atletismo", tipo: "Individual", adaptado: true, idosos: true, descricao: "Comece com passos leves, no seu ritmo. Simples, de baixo impacto e para todas as idades." },
+  { id: 328, nome: "Musculação", categoria: "Força", tipo: "Individual", adaptado: true, idosos: true, descricao: "Fortalecimento com pesos ou o peso do próprio corpo. Comece leve, com orientação de um profissional." },
+  { id: 329, nome: "Spinning", categoria: "Ciclismo", tipo: "Ambos", adaptado: false, idosos: false, pais: "Estados Unidos", descricao: "Pedalada em grupo, em bicicleta ergométrica, ao som de música. Ajuste o esforço ao seu nível." },
 ];
 
 const detalhes: Record<number, { pais?: string; descricao?: string }> = {

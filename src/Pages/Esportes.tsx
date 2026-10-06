@@ -1,24 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { esportes } from "../data/esportes";
 import "./Esportes.css";
+import { useSearchParams } from "react-router-dom";
+import { normalizar } from "../data/busca";
 
 const POR_PAGINA = 30;
 
 export default function Esportes() {
-  const [busca, setBusca] = useState("");
+ const [params] = useSearchParams();
+const [busca, setBusca] = useState(params.get("busca") ?? "");
   const [categoria, setCategoria] = useState("Todas");
   const [soAdaptado, setSoAdaptado] = useState(false);
   const [soIdosos, setSoIdosos] = useState(false);
+  const [soFavoritos, setSoFavoritos] = useState(false);
   const [visiveis, setVisiveis] = useState(POR_PAGINA);
+
+  const [favoritos, setFavoritos] = useState<number[]>(() => {
+    const salvo = localStorage.getItem("esportes-favoritos");
+    return salvo ? JSON.parse(salvo) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("esportes-favoritos", JSON.stringify(favoritos));
+  }, [favoritos]);
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
+  function alternarFavorito(id: number) {
+    if (favoritos.includes(id)) {
+      setFavoritos(favoritos.filter((f) => f !== id));
+    } else {
+      setFavoritos([...favoritos, id]);
+    }
+  }
 
   const categorias = ["Todas", ...new Set(esportes.map((e) => e.categoria))];
 
   const filtrados = esportes.filter((e) => {
-    const combinaNome = e.nome.toLowerCase().includes(busca.toLowerCase());
-    const combinaCategoria = categoria === "Todas" || e.categoria === categoria;
+const combinaNome = normalizar(e.nome).includes(normalizar(busca));    const combinaCategoria = categoria === "Todas" || e.categoria === categoria;
     const combinaAdaptado = !soAdaptado || e.adaptado;
     const combinaIdosos = !soIdosos || e.idosos;
-    return combinaNome && combinaCategoria && combinaAdaptado && combinaIdosos;
+    const combinaFavorito = !soFavoritos || favoritos.includes(e.id);
+    return (
+      combinaNome &&
+      combinaCategoria &&
+      combinaAdaptado &&
+      combinaIdosos &&
+      combinaFavorito
+    );
   });
 
   const mostrados = filtrados.slice(0, visiveis);
@@ -26,7 +56,9 @@ export default function Esportes() {
   return (
     <section className="activities">
       <h2>Enciclopédia dos Esportes</h2>
-      <p className="points-total">{filtrados.length} esportes para você se mover 💜</p>
+      <p className="points-total">
+        {filtrados.length} esportes para você se mover 💜
+      </p>
 
       <input
         className="sport-search"
@@ -79,9 +111,26 @@ export default function Esportes() {
           />{" "}
           👵 Indicado para idosos
         </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={soFavoritos}
+            onChange={(e) => {
+              setSoFavoritos(e.target.checked);
+              setVisiveis(POR_PAGINA);
+            }}
+          />{" "}
+          ❤️ Meus favoritos ({favoritos.length})
+        </label>
       </div>
 
-      {filtrados.length === 0 && <p>Nenhum esporte encontrado 😕</p>}
+      {filtrados.length === 0 && (
+        <p>
+          {soFavoritos && favoritos.length === 0
+            ? "Você ainda não favoritou nenhum esporte. Toque no 🤍 de um card! 💜"
+            : "Nenhum esporte encontrado 😕"}
+        </p>
+      )}
 
       <div className="activities-grid">
         {mostrados.map((esporte) => (
@@ -90,7 +139,20 @@ export default function Esportes() {
             key={esporte.id}
             style={{ cursor: "default" }}
           >
-            <h3>{esporte.nome}</h3>
+            <div className="sport-head">
+              <h3>{esporte.nome}</h3>
+              <button
+                className="sport-heart"
+                onClick={() => alternarFavorito(esporte.id)}
+                aria-label={
+                  favoritos.includes(esporte.id)
+                    ? "Tirar dos favoritos"
+                    : "Adicionar aos favoritos"
+                }
+              >
+                {favoritos.includes(esporte.id) ? "❤️" : "🤍"}
+              </button>
+            </div>
             {esporte.descricao && <p>{esporte.descricao}</p>}
             <div className="activity-tags">
               <span className="tag">{esporte.categoria}</span>
@@ -113,5 +175,4 @@ export default function Esportes() {
       )}
     </section>
   );
-  
 }

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import PontoDePartida from './PontoDePartida'
+import { Link } from 'react-router-dom'
+import { temNaEnciclopedia, termoDoEsporte } from '../data/busca'
 
 const activities = [
   { title: 'Caminhada', description: 'Comece com passos leves, no seu ritmo.', points: 10, tags: ['sem impacto', 'adaptável'] },
@@ -157,6 +159,15 @@ const progress = nextLevel
     <span className="tag" key={tag}>{tag}</span>
   ))}
 </div>
+{temNaEnciclopedia(activity.title) && (
+  <Link
+    to={`/esportes?busca=${encodeURIComponent(termoDoEsporte(activity.title))}`}
+    className="ver-enciclopedia"
+    onClick={(e) => e.stopPropagation()}
+  >
+    📖 Ver na Enciclopédia
+  </Link>
+)}
             <span className="status">
               {completed.includes(activity.title)
                 ? '✓ Concluído'
